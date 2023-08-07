@@ -1,0 +1,23 @@
+clear
+syms m
+syms w
+Fs=100;%采样频率100Hz
+f1=15;
+f2=20;
+t=0:1/Fs:10-1/Fs % 0-9s 一共150个点
+m=0:0.1/Fs:0.4-0.1/Fs 
+y=(94.3*t-11.3).*(heaviside(t-0.12)-heaviside(t-0.155))+(-94.3*t+17.9).*(heaviside(t-0.155)-heaviside(t-0.19));
+ft=(94.3*m-11.3).*(heaviside(m-0.12)-heaviside(m-0.155))+(-94.3*m+17.9).*(heaviside(m-0.155)-heaviside(m-0.19));
+N=length(y);
+f=(0:N-1)*Fs/N;
+subplot(1,2,1)
+plot(m,ft)
+k=abs(fft(y));
+subplot(1,2,2)
+plot(f,k)
+[peaks,locs]=findpeaks(-k)%寻找极小值
+locs(1)
+
+
+%h=double(solve(s))
+
